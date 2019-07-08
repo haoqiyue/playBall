@@ -1,0 +1,12 @@
+.admin-main{padding: 0px}
+.container .modal{width: 80%;margin: 20px auto;}
+.layui-tab{ margin: 0px;}
+.icon-body{ width: 80%; margin: auto;}
+.fontawesome-icon-list{ line-height: 30px;}
+.fontawesome-icon-list div{cursor: pointer;}
+.list-search{ width: 80%};
+.list-button{  width: 20%; text-align: right}
+.login-box{ width: 360px; margin: auto}
+.login-box header{margin-top: 150px; height: 35px; line-height: 35px; font-size: 30px; font-weight: 100;  text-align: center;}
+.login-form{ width: 360px; height: 300px; margin: auto;}
+.login-form input,.login-form button{ width: 100%; margin-top: 15px;}

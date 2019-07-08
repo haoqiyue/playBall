@@ -1,0 +1,95 @@
+<form action="{:url()}" method="post" class="form_single" autocomplete="off">
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>头像</label>
+                        <br/>
+                        {assign name="photo" value="$info.cover_id|default='0'"/}
+                        {:widget('file/index', ['name' => 'photo', 'value' => $photo, 'type' => 'img'])}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>手机号</label>
+                        <input class="form-control" name="phone" value="{$info['phone']|default=''}" type="text" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>任务类型</label>
+                        {if $info['ta_type'] eq 1}
+                            <input class="form-control" name="ta_type" value="新人任务" type="text" readonly>
+                        {elseif $info['ta_type'] eq 2}
+                            <input class="form-control" name="ta_type" value="日常任务" type="text" readonly>
+                        {elseif $info['ta_type'] eq 3}
+                            <input class="form-control" name="ta_type" value="现金任务" type="text" readonly>
+                        {else}
+                            <input class="form-control" name="ta_type" value="" type="text" readonly>
+                        {/if}
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>任务分类</label>
+                        {if $info['tasktype'] eq 1}
+                            <input class="form-control" name="tasktype" value="阅读新闻" type="text" readonly>
+                        {elseif $info['tasktype'] eq 2}
+                            <input class="form-control" name="tasktype" value="下载app" type="text" readonly>
+                        {elseif $info['tasktype'] eq 3}
+                            <input class="form-control" name="tasktype" value="观看视频" type="text" readonly>
+                        {elseif $info['tasktype'] eq 4}
+                            <input class="form-control" name="tasktype" value="玩小游戏" type="text" readonly>
+                        {else}
+                            <input class="form-control" name="tasktype" value="邀请好友" type="text" readonly>
+                        {/if}
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>状态</label>
+                        {if $info['type'] eq 2}
+                            {if $info['status'] eq 1}
+                                <input class="form-control" name="state" value="积分已兑换" type="text" readonly>
+                            {elseif $info['status'] eq 2}
+                                <input class="form-control" name="state" value="积分已拒绝兑换" type="text" readonly>
+                            {else}
+                                <input class="form-control" name="state" value="积分申请待审核" type="text" readonly>
+                            {/if}
+                        {/if}
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="box-footer">
+
+            <input type="hidden" name="userid" value="{$info['userid']|default='0'}"/>
+
+            {include file="layout/edit_btn_group"/}
+
+        </div>
+
+    </div>
+</form>
+
+<script>
+    ob.setValue("iftixian", {$info.iftixian|default=0});
+    $(function () {
+        $('.ajax-post').remove();
+        $('.pic_del').remove();
+        $('.uploadify-button').remove();
+    });
+
+</script>

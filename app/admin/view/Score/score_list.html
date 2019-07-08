@@ -1,0 +1,143 @@
+<div class="box">
+    <div class="box-header">
+
+        <div class="row">
+
+
+            <div class="col-sm-12">
+                <div class="box-tools search-form pull-right">
+                    <div class="input-group input-group-sm">
+
+                        <input type="text" name="phone" style="width: 200px;" class="form-control pull-right"
+                               value="{:input('phone')}" placeholder="查询用户手机号">
+
+                        <input type="text" name="name" style="width: 200px;" class="form-control pull-right"
+                               value="{:input('name')}" placeholder="查询用户昵称">
+
+                        <input type="text" name="title" style="width: 200px;" class="form-control pull-right"
+                               value="{:input('title')}" placeholder="查询任务说明">
+
+
+                        <select class="form-control pull-right" name="type" style="width: 170px">
+                            <option value="">请选择积分类型</option>
+                            <option value="1">获取</option>
+                            <option value="2">兑换</option>
+                        </select>
+
+                        <div class="input-group-btn">
+                            <button type="button" id="search"  url="{:url('scorelist')}" class="btn btn-info btn-
+flat"><i class="fa fa-search"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="box-body table-responsive">
+        <table  class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>手机号</th>
+                <th>头像</th>
+                <th>昵称</th>
+                <th>积分类型</th>
+                <th>任务类型</th>
+                <th>任务标题</th>
+                <th>奖励积分</th>
+                <th>发布人</th>
+                <th>任务分类</th>
+                <th>状态</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            {notempty name='list'}
+            <tbody>
+            {volist name='list' id='vo'}
+
+            <tr>
+                <td>{$vo.phone}</td>
+                <td><img class="admin-list-img-size" src="{$vo.photo|get_picture_url}"/></td>
+                <td>{$vo.name}</td>
+                <td>
+                    {if $vo.type eq 1}
+                        <span>获取</span>
+                    {else}
+                        <span>兑换</span>
+                    {/if}
+                </td>
+                <td>
+                    {if $vo.ta_type eq 1}
+                        <span>新人任务</span>
+                    {elseif $vo.ta_type eq 2}
+                        <span>日常任务</span>
+                    {else}
+                        <span>现金任务</span>
+                    {/if}
+                </td>
+                <td>{$vo.title}</td>
+                <td>{$vo.score}</td>
+                <td>{$vo.nickname}</td>
+                <td>
+                    {if $vo.tasktype eq 1}
+                        <span>阅读新闻</span>
+                    {elseif $vo.ta_type eq 2}
+                        <span>下载app</span>
+                    {elseif $vo.ta_type eq 2}
+                        <span>观看视频</span>
+                    {elseif $vo.ta_type eq 2}
+                        <span>玩小游戏</span>
+                    {else}
+                        <span>邀请好友</span>
+                    {/if}
+                </td>
+                <td>
+                    {if $vo.type eq 1}
+                        {if $vo.status == 1}
+                            <span>正常</span>
+                        {else}
+                            <span>锁定</span>
+                        {/if}
+                    {else}
+                        {if $vo.status == 1}
+                            <span>已兑换</span>
+                        {elseif $vo.status == 2}
+                            <span>已拒绝</span>
+                        {else}
+                            <span>待审核</span>
+                        {/if}
+                    {/if}
+                </td>
+                <td>{$vo.create_time}</td>
+                <td class="col-md-2 text-center">
+
+                    {if $vo.type eq 2 && $vo.status eq 0}
+                    <ob_link><a href="{:url('scoreExamine', array('scoreid' => $vo['scoreid'], 'status'=>1))}" class="btn confirm ajax-get" style="background-color: #48c18a"><i class="fa fa-
+ edit"></i> 审核通过</a></ob_link>
+                    <ob_link><a href="{:url('scoreExamine', array('scoreid' => $vo['scoreid'], 'status'=>2))}" class="btn confirm ajax-get" style="background-color: #ec5e5e"><i class="fa fa-
+ edit"></i> 审核拒绝</a></ob_link>
+                    {/if}
+                    <ob_link><a href="{:url('scoreInfo', array('scoreid' => $vo['scoreid']))}" class="btn "><i class="fa fa-
+ edit"></i> 查看</a></ob_link>
+
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+            {else/}
+
+            {/notempty}
+        </table>
+
+    </div>
+    <div class="box-footer clearfix text-center">
+        {$list->render()}
+    </div>
+</div>
+
+<script>
+    ob.setValue("type", {:input('type')});
+</script>
